@@ -1,0 +1,158 @@
+dataloader:
+  batch_size: 6
+  data_root: data
+  num_workers: 1
+  train_datasets:
+  - params:
+      im_preprocessor_config:
+        params:
+          horizon_flip: true
+          random_crop: true
+          size:
+          - 256
+          - 256
+          smallest_max_size: 256
+        target: image_synthesis.data.utils.image_preprocessor.SimplePreprocessor
+      image_list_file: data/ffhqtrain_69k.txt
+      mask: 1.0
+      mask_low_size:
+      - 32
+      - 32
+      mask_low_to_high: 0.1
+      multi_image_mask: false
+      name: ffhq
+      provided_mask_name: irregular-mask/testing_mask_dataset
+      return_data_keys:
+      - image
+      - mask
+      stroken_mask_params:
+        keep_ratio:
+        - 0.3
+        - 0.6
+        maxBrushWidth: 30
+        maxLength: 100
+        maxVertex: 10
+        minBrushWidth: 10
+        minVertex: 5
+        min_area: 64
+      use_provided_mask: 0.8
+      use_provided_mask_ratio:
+      - 0.3333333
+      - 1.0
+    target: image_synthesis.data.image_list_dataset.ImageListDataset
+  validation_datasets:
+  - params:
+      im_preprocessor_config:
+        params:
+          size:
+          - 256
+          - 256
+          smallest_max_size: 256
+        target: image_synthesis.data.utils.image_preprocessor.SimplePreprocessor
+      image_list_file: data/ffhqvalidation_1k.txt
+      mask: 1.0
+      mask_low_size:
+      - 32
+      - 32
+      mask_low_to_high: 0.0
+      multi_image_mask: false
+      name: ffhq
+      provided_mask_name: irregular-mask/testing_mask_dataset
+      return_data_keys:
+      - image
+      - mask
+      - relative_path
+      stroken_mask_params:
+        keep_ratio:
+        - 0.3
+        - 0.6
+        maxBrushWidth: 30
+        maxLength: 100
+        maxVertex: 10
+        minBrushWidth: 10
+        minVertex: 5
+        min_area: 64
+      use_provided_mask: 1.0 #TODO0.8
+      use_provided_mask_ratio:
+      - 0.4
+      - 1.0
+    target: image_synthesis.data.image_list_dataset.ImageListDataset
+
+model:
+  target: image_synthesis.modeling.models.masked_image_inpainting_transformer_in_feature.MaskedImageInpaintingTransformer
+  params:
+    n_layer: 30
+    content_seq_len: 1024
+    n_embd: 512 
+    n_head: 8
+
+    num_token: 512
+
+    embd_pdrop: 0.0
+    attn_pdrop: 0.0
+    resid_pdrop: 0.0
+    attn_content_with_mask: False
+    mlp_hidden_times: 4
+    block_activate: GELU2
+    random_quantize: 0.3
+    weight_decay: 0.01
+
+    content_codec_config:
+      target: image_synthesis.modeling.codecs.image_codec.patch_vqgan.PatchVQGAN
+      params:
+        trainable: False
+        token_shape: [32, 32]
+        combine_rec_and_gt: True 
+        quantizer_config:
+          target: image_synthesis.modeling.codecs.image_codec.patch_vqgan.VectorQuantizer
+          params:
+            n_e: 1024
+            e_dim: 256
+            masked_embed_start: 512
+            embed_ema: True
+            get_embed_type: retrive
+            distance_type: euclidean 
+        encoder_config: 
+          target: image_synthesis.modeling.codecs.image_codec.patch_vqgan.PatchEncoder2
+          params:
+            in_ch: 3
+            res_ch: 256
+            out_ch: 256
+            num_res_block: 8
+            res_block_bottleneck: 2
+            stride: 8
+        decoder_config:
+          target: image_synthesis.modeling.codecs.image_codec.patch_vqgan.PatchConvDecoder2
+          params:
+            in_ch: 256
+            out_ch: 3
+            res_ch: 256
+            num_res_block: 8
+            res_block_bottleneck: 2
+            stride: 8
+            up_layer_with_image: true
+            encoder_downsample_layer: conv
+
+solver:
+  adjust_lr: none
+  base_lr: 0.0
+  find_unused_parameters: false
+  max_epochs: 250
+  optimizers_and_schedulers:
+  - name: transformer
+    optimizer:
+      params:
+        betas: !!python/tuple
+        - 0.9
+        - 0.95
+      target: torch.optim.AdamW
+    scheduler:
+      params:
+        min_lr: 1.0e-05
+        warmup: 2000
+        warmup_lr: 0.0003
+      step_iteration: 1
+      target: image_synthesis.engine.lr_scheduler.CosineAnnealingLRWithWarmup
+  sample_iterations: 20000
+  save_epochs: 5
+  validation_epochs: 1

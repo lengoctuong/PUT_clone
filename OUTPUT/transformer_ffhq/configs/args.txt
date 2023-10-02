@@ -1,0 +1,31 @@
+==> torch version: 1.8.0
+==> cudnn version: 8005
+==> Cmd:
+['train_net.py', '--name', 'transformer_l30d512h8_patch_vqgan_FFHQ_LinearEnc2PatchDec2_ResBlock8_n512n512d256_euclidean_ema_noPos_ECLossDisc5000_ZeroMask0.3_EraseIm0.2_pconvMask0.7_69_bs6g8', '--config_file', 'configs/patch_vqgan_ffhq/transformer_l30d512h8_patch_vqgan_FFHQ_LinearEnc2PatchDec2_ResBlock8_n512n512d256_euclidean_ema_noPos_ECLossDisc5000_ZeroMask0.3_EraseIm0.2_pconvMask0.7_69.yaml', '--tensorboard', '--auto_resume', 'dataloader.batch_size', '6', 'dataloader.num_workers', '1', 'solver.sample_iterations', '20000']
+==> args:
+  amp: False
+  auto_resume: True
+  config_file: configs/patch_vqgan_ffhq/transformer_l30d512h8_patch_vqgan_FFHQ_LinearEnc2PatchDec2_ResBlock8_n512n512d256_euclidean_ema_noPos_ECLossDisc5000_ZeroMask0.3_EraseIm0.2_pconvMask0.7_69.yaml
+  cudnn_deterministic: False
+  cwd: /home/liuqk/Program/python/image-synthesis
+  debug: False
+  dist_url: tcp://127.0.0.1:29500
+  distributed: True
+  global_rank: 0
+  gpu: None
+  load_path: None
+  local_rank: 0
+  log_frequency: 10
+  name: transformer_l30d512h8_patch_vqgan_FFHQ_LinearEnc2PatchDec2_ResBlock8_n512n512d256_euclidean_ema_noPos_ECLossDisc5000_ZeroMask0.3_EraseIm0.2_pconvMask0.7_69_bs6g8
+  ngpus_per_node: 8
+  node_rank: 0
+  num_node: 1
+  opts: ['dataloader.batch_size', '6', 'dataloader.num_workers', '1', 'solver.sample_iterations', '20000']
+  output: OUTPUT
+  resume_name: None
+  save_dir: OUTPUT/transformer_l30d512h8_patch_vqgan_FFHQ_LinearEnc2PatchDec2_ResBlock8_n512n512d256_euclidean_ema_noPos_ECLossDisc5000_ZeroMask0.3_EraseIm0.2_pconvMask0.7_69_bs6g8
+  seed: None
+  sync_bn: False
+  tensorboard: True
+  timestamp: False
+  world_size: 8
