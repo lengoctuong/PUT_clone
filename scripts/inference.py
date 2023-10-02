@@ -19,7 +19,7 @@ from torch.utils.data import ConcatDataset, dataset
 
 import sys
 import os
-path = os.path.abspath('/content/drive/MyDrive/Colab-Notebooks/Inpainting/PUT2/PUT')
+path = os.path.abspath('/content/drive/MyDrive/Colab-Notebooks/Inpainting/PUT')
 sys.path.append(path)
 
 from image_synthesis.utils.io import load_yaml_config, load_dict_from_json, save_dict_to_json
