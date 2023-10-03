@@ -2,17 +2,17 @@
 .vscode
 .cache
 curves
-OUTPUT
+# OUTPUT
 DATASET
-OUTPUT*
-RESULT*
+# OUTPUT*
+# RESULT*
 image_synthesis.egg-info
 data/celeba-hq
 data/celeba
 data/imagenet-depth
 data/tophost-art
 data/tophost-portrait
-data/ffhq
+# data/ffhq
 data/irregular-mask
 data/imagenet
 data/captions
@@ -36,4 +36,3 @@ train_codec.py
 train_dalle.py
 scripts/inference_bk.py
 **.pth
-desktop.ini*
