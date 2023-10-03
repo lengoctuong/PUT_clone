@@ -58,7 +58,7 @@ solver:
   find_unused_parameters: False
   base_lr: 0.0
   adjust_lr: none # not adjust lr according to total batch_size
-  max_epochs: 250
+  max_epochs: 1
   save_epochs: 5
   validation_epochs: 1
   sample_iterations: 10000 # 5000      # how many iterations to perform sampling once ?

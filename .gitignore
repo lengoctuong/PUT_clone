@@ -2,9 +2,9 @@
 .vscode
 .cache
 curves
-# OUTPUT
+OUTPUT
 DATASET
-# OUTPUT*
+OUTPUT*
 RESULT*
 image_synthesis.egg-info
 data/celeba-hq

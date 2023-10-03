@@ -20,7 +20,8 @@ from torch.utils.data import ConcatDataset, dataset
 
 import sys
 import os
-path = os.path.abspath('/content/drive/MyDrive/Colab-Notebooks/Inpainting/PUT')
+path = os.path.abspath('/content/drive/MyDrive/Inpainting/PUT')
+# path = os.path.abspath('/content/drive/MyDrive/Colab-Notebooks/Inpainting/PUT')
 sys.path.append(path)
 
 from image_synthesis.utils.io import load_yaml_config, load_dict_from_json, save_dict_to_json
@@ -41,14 +42,14 @@ class ImagePathDataset(torch.utils.data.Dataset):
             image_dir = ''
         else:
             # import pdb; pdb.set_trace()
-            image_paths = sorted(get_all_file(image_dir, end_with='.png', path_type='relative'))
-        
+            image_paths = sorted(get_all_file(image_dir, end_with=['.png', '.jpg'], path_type='relative'))
+        print('here', image_dir)
         if mask_dir is not None:
             if os.path.isfile(mask_dir):
                 mask_paths = [mask_dir]
                 mask_dir = ''
             else:
-                mask_paths = sorted(get_all_file(mask_dir, end_with='.png', path_type='relative'))
+                mask_paths = sorted(get_all_file(mask_dir, end_with=['.png', '.jpg'], path_type='relative'))
         else:
             mask_paths = None
 

@@ -15,6 +15,11 @@ except ImportError:
     def tqdm(x):
         return x
 
+import sys
+import os
+path = os.path.abspath('/content/drive/MyDrive/Colab-Notebooks/Inpainting/PUT')
+sys.path.append(path)
+
 from image_synthesis.utils.misc import get_all_file, get_all_subdir
 from image_synthesis.utils.io import save_dict_to_json
 
