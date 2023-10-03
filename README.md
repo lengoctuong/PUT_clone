@@ -1,4 +1,4 @@
-
+# Clone from [this repo](https://github.com/liuqk3/PUT)
 # Reduce Information Loss in Transformers for Pluralistic Image Inpainting
 
 ## Overview
