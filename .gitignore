@@ -36,3 +36,4 @@ train_codec.py
 train_dalle.py
 scripts/inference_bk.py
 **.pth
+desktop.ini
